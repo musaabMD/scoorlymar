@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { Search, BookOpen } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Search, BookOpen, ChevronDown } from 'lucide-react';
 import { examData, tabs } from '@/app/data/allexams';
 import Link from 'next/link';
 
@@ -8,6 +8,22 @@ const ExamList = () => {
   const [activeTab, setActiveTab] = useState('medical');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredExams, setFilteredExams] = useState({});
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Initialize filteredExams with examData on component mount
   useEffect(() => {
@@ -58,6 +74,15 @@ const ExamList = () => {
   // When searching, get all exams that match the search query regardless of active tab
   const isSearching = searchQuery.trim() !== '';
   
+  // Get active tab label for dropdown display
+  const activeTabLabel = tabs.find(tab => tab.id === activeTab);
+
+  // Handle tab selection from dropdown
+  const handleTabSelect = (tabId) => {
+    setActiveTab(tabId);
+    setIsDropdownOpen(false);
+  };
+
   // Function to render exams for each category
   const renderExamsForCategory = (exams, category) => (
     <div key={category}>
@@ -85,7 +110,6 @@ const ExamList = () => {
     </div>
   );
   
-
   return (
     <div className="p-2 sm:p-4 max-w-7xl mx-auto bg-white min-h-screen">
       {/* Hero Section with Icon */}
@@ -111,23 +135,59 @@ const ExamList = () => {
         </div>
       </div>
       
-      {/* Tab Navigation - horizontal scrollable on small screens */}
-      <div className="flex overflow-x-auto mb-4 sm:mb-8 pb-2 scrollbar-hide justify-start sm:justify-center">
-        <div className="flex space-x-1 sm:space-x-2 px-1">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
-                activeTab === tab.id
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-              }`}
-            >
-              <span className="mr-1 sm:mr-2">{tab.icon}</span>
-              {tab.label}
-            </button>
-          ))}
+      {/* Tab Navigation - Dropdown on mobile, horizontal tabs on larger screens */}
+      <div className="mb-6 sm:mb-8">
+        {/* Mobile dropdown */}
+        <div className="block sm:hidden" ref={dropdownRef}>
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm flex items-center justify-between"
+          >
+            <div className="flex items-center">
+              {activeTabLabel?.icon}
+              <span className="ml-2 font-medium">{activeTabLabel?.label}</span>
+            </div>
+            <ChevronDown className={`transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} size={20} />
+          </button>
+          
+          {isDropdownOpen && (
+            <div className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+              {tabs.map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabSelect(tab.id)}
+                  className={`w-full flex items-center px-4 py-3 text-left text-sm ${
+                    activeTab === tab.id
+                      ? 'bg-blue-50 text-blue-600 font-medium'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="mr-2">{tab.icon}</span>
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {/* Desktop tabs */}
+        <div className="hidden sm:flex overflow-x-auto pb-2 scrollbar-hide justify-center">
+          <div className="flex space-x-2 px-1">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
+                  activeTab === tab.id
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                <span className="mr-2">{tab.icon}</span>
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
