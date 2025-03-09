@@ -63,7 +63,13 @@ export function useExamState() {
   };
 
   const filterReviewItems = (items) => {
-    return items.filter(item => {
+    // First filter to only show MCQ pinned or incorrect items
+    const mcqItems = items.filter(item => 
+      item.type === 'pinned' || item.type === 'incorrect'
+    );
+    
+    // Then apply the user's filter and search criteria
+    return mcqItems.filter(item => {
       const matchesFilter = reviewFilter === 'all' || item.type === reviewFilter;
       const matchesSearch = !searchTerm || 
                           item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
