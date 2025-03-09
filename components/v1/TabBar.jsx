@@ -5,8 +5,7 @@ const TabBar = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'study', label: 'Study' },
     { id: 'assessment', label: 'Simulator' },
-    { id: 'incorrect', label: 'Incorrect' },
-    { id: 'pinned', label: 'Pinned' },
+    { id: 'review', label: 'Review' },
     { id: 'concepts', label: 'Concepts' },
     { id: 'chat', label: 'Chat' },
     { id: 'profile', label: 'Profile' },
@@ -63,25 +62,14 @@ const TabBar = ({ activeTab, setActiveTab }) => {
                   </svg>
                 );
                 break;
-              case 'incorrect':
+              case 'review':
                 icon = activeTab === tab.id ? (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" viewBox="0 0 24 24" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    <path fillRule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8.4l3 4a1 1 0 01.2.6v10a3 3 0 01-3 3H6a3 3 0 01-3-3V6zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1V8h-3a1 1 0 01-1-1V4H6zm10 2V5l2 2h-2z" clipRule="evenodd" />
                   </svg>
                 ) : (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                );
-                break;
-              case 'pinned':
-                icon = activeTab === tab.id ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
-                  </svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 );
                 break;

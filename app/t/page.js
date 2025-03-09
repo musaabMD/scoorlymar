@@ -839,6 +839,38 @@ export default function ExamDashboard() {
     }
   ]);
 
+  // Sample review data for pinned and incorrect items
+  const [reviewItems] = useState([
+    {
+      id: 101,
+      question: "What is the primary mechanism of action for ACE inhibitors?",
+      type: "incorrect",
+      category: "Cardiovascular",
+      date: "2025-02-28"
+    },
+    {
+      id: 102,
+      question: "What are the primary symptoms of Cushing's syndrome?",
+      type: "pinned",
+      category: "Endocrine, Hematology, Gastro, Renal, Integumentary",
+      date: "2025-03-01"
+    },
+    {
+      id: 103,
+      question: "Which of the following is NOT a common complication of diabetes mellitus?",
+      type: "incorrect",
+      category: "Endocrine, Hematology, Gastro, Renal, Integumentary",
+      date: "2025-03-02"
+    },
+    {
+      id: 104,
+      question: "What is the gold standard diagnostic test for pulmonary embolism?",
+      type: "pinned",
+      category: "Cardiovascular",
+      date: "2025-03-03"
+    }
+  ]);
+
   const [assessmentCategory] = useState({
     id: 4,
     name: "Random Assessment Topic",
@@ -849,8 +881,9 @@ export default function ExamDashboard() {
   });
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeTab, setActiveTab] = useState('study'); // 'study', 'assessment', 'incorrect', 'pinned', 'concepts'
+  const [activeTab, setActiveTab] = useState('study'); // 'study', 'assessment', 'review', 'concepts'
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [reviewFilter, setReviewFilter] = useState('all'); // 'all', 'incorrect', 'pinned'
   const examName = "Medical Board Examination";
   
   // Overall score calculation
@@ -862,6 +895,14 @@ export default function ExamDashboard() {
   const filteredCategories = examCategories.filter(category =>
     category.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Filter review items based on review filter and search term
+  const filteredReviewItems = reviewItems.filter(item => {
+    const matchesFilter = reviewFilter === 'all' || item.type === reviewFilter;
+    const matchesSearch = item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          item.category.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
   // Handler for starting assessment or review
   const handleStartClick = (category) => {
@@ -937,26 +978,82 @@ export default function ExamDashboard() {
               />
             )}
 
-            {/* Incorrect Tab */}
-            {activeTab === 'incorrect' && (
-              <EmptyState 
-                icon="✅"
-                title="No Incorrect Questions"
-                description="Answer questions in study mode to see your incorrect answers here."
-                buttonText="Practice More"
-                buttonAction={() => setActiveTab('assessment')}
-              />
-            )}
+            {/* Review Tab (merged pinned and incorrect) */}
+            {activeTab === 'review' && (
+              <>
+                {/* Filter controls */}
+                <div className="bg-white rounded-lg shadow-sm p-4 border border-gray-200 mb-4">
+                  <div className="flex flex-wrap gap-2">
+                    <button 
+                      className={`px-3 py-1 rounded-full text-sm font-medium transition ${reviewFilter === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                      onClick={() => setReviewFilter('all')}
+                    >
+                      All
+                    </button>
+                    <button 
+                      className={`px-3 py-1 rounded-full text-sm font-medium transition ${reviewFilter === 'incorrect' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                      onClick={() => setReviewFilter('incorrect')}
+                    >
+                      Incorrect
+                    </button>
+                    <button 
+                      className={`px-3 py-1 rounded-full text-sm font-medium transition ${reviewFilter === 'pinned' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                      onClick={() => setReviewFilter('pinned')}
+                    >
+                      Pinned
+                    </button>
+                  </div>
+                </div>
 
-            {/* Pinned Tab */}
-            {activeTab === 'pinned' && (
-              <EmptyState 
-                icon="📌"
-                title="No Pinned Questions"
-                description="Pin important questions during your study sessions to see them here."
-                buttonText="Browse Topics"
-                buttonAction={() => setActiveTab('study')}
-              />
+                {filteredReviewItems.length > 0 ? (
+                  <div className="space-y-4">
+                    {filteredReviewItems.map((item) => (
+                      <div 
+                        key={item.id} 
+                        className="bg-white rounded-lg shadow-sm p-4 border border-gray-200 w-full cursor-pointer transition hover:shadow-md"
+                        onClick={() => handleStartClick({...item, fromTab: 'review'})}
+                      >
+                        <div className="flex items-start">
+                          <div className="mr-3 mt-1">
+                            {item.type === 'incorrect' ? (
+                              <span className="inline-flex items-center justify-center w-6 h-6 bg-red-100 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-red-600" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                                </svg>
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                                  <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+                                </svg>
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-gray-800 font-medium">{item.question}</p>
+                            <div className="flex justify-between mt-2 text-sm">
+                              <span className="text-gray-600">{item.category}</span>
+                              <span className="text-gray-500">{new Date(item.date).toLocaleDateString()}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <EmptyState 
+                    icon={reviewFilter === 'pinned' ? "📌" : "✅"}
+                    title={reviewFilter === 'all' ? "No Review Items" : 
+                           reviewFilter === 'pinned' ? "No Pinned Questions" : 
+                           "No Incorrect Questions"}
+                    description={reviewFilter === 'all' ? "You don't have any questions to review." : 
+                                 reviewFilter === 'pinned' ? "Pin important questions during your study sessions to see them here." : 
+                                 "Answer questions in study mode to see your incorrect answers here."}
+                    buttonText="Practice More"
+                    buttonAction={() => setActiveTab('assessment')}
+                  />
+                )}
+              </>
             )}
 
             {/* Concepts Tab */}
