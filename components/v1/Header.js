@@ -7,8 +7,7 @@ const Header = ({
   overallPercentage, 
   searchTerm, 
   onSearchChange, 
-  activeTab,
-  isMobile = false
+  activeTab
 }) => {
   // Function to get page title based on active tab
   const getPageTitle = (tab) => {
@@ -51,11 +50,11 @@ const Header = ({
           <div className="flex items-center">
             <Logo />
             <span className="text-gray-500 text-xs ml-2 md:text-sm">/ {pageTitle}</span>
-            {!isMobile && <span className="hidden lg:inline-block text-base font-medium ml-6">{examName}</span>}
+            <span className="hidden lg:inline-block text-base font-medium ml-6">{examName}</span>
           </div>
           
           <div className="flex items-center">
-            {isMobile && <div className="hidden sm:block text-sm font-medium mr-2">{examName}</div>}
+            <div className="md:hidden sm:block text-sm font-medium mr-2">{examName}</div>
             <div className={`${scoreContainerStyle} rounded-full px-2 py-1 md:px-3 md:py-1 flex items-center`}>
               <div className={`mr-1 md:mr-2 w-5 h-5 md:w-6 md:h-6 rounded-full ${scoreCircleStyle} flex items-center justify-center text-xs font-bold`}>
                 {Math.round(overallPercentage / 10)}

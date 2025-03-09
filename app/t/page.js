@@ -800,6 +800,7 @@
 //     </div>
 //   );
 // }
+
 'use client';
 import { useState } from 'react';
 import Header from '@/components/v1/Header';
@@ -807,13 +808,12 @@ import TabBar from '@/components/v1/TabBar';
 import CategoryList from '@/components/v1/CategoryList';
 import CategoryDetail from '@/components/v1/CategoryDetail';
 import EmptyState from '@/components/EmptyState';
-import ConceptCard from '@/components/v1/ConceptCard';
 import Chat from '@/components/v1/Chat';
 import Profile from '@/components/v1/Profile';
 
 export default function ExamDashboard() {
   // Sample exam data - you would fetch this from an API in a real app
-  const [examCategories, setExamCategories] = useState([
+  const [examCategories] = useState([
     {
       id: 1,
       name: "Cardiovascular",
@@ -840,7 +840,7 @@ export default function ExamDashboard() {
     }
   ]);
 
-  const [assessmentCategory, setAssessmentCategory] = useState({
+  const [assessmentCategory] = useState({
     id: 4,
     name: "Random Assessment Topic",
     correct: 0,
@@ -895,7 +895,6 @@ export default function ExamDashboard() {
           searchTerm={searchTerm}
           onSearchChange={handleSearchChange}
           activeTab={activeTab}
-          isMobile={true}
         />
       </div>
       
@@ -909,7 +908,6 @@ export default function ExamDashboard() {
           searchTerm={searchTerm}
           onSearchChange={handleSearchChange}
           activeTab={activeTab}
-          isMobile={false}
         />
       </div>
 
