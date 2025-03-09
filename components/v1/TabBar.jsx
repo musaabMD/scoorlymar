@@ -4,7 +4,7 @@ const TabBar = ({ activeTab, setActiveTab }) => {
   // When tab changes, we want to reset any selected category
   const tabs = [
     { id: 'study', label: 'Study' },
-    { id: 'assessment', label: 'Simulator' },
+    { id: 'simulator', label: 'Simulator' },
     { id: 'review', label: 'Review' },
     { id: 'concepts', label: 'Concepts' },
     { id: 'chat', label: 'Chat' },
@@ -50,7 +50,7 @@ const TabBar = ({ activeTab, setActiveTab }) => {
                   </svg>
                 );
                 break;
-              case 'assessment':
+              case 'simulator':
                 icon = activeTab === tab.id ? (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
