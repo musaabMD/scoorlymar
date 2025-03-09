@@ -800,7 +800,6 @@
 //     </div>
 //   );
 // }
-
 'use client';
 import { useState } from 'react';
 import Header from '@/components/v1/Header';
@@ -885,31 +884,16 @@ export default function ExamDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header Component for mobile */}
-      <div className="md:hidden">
-        <Header 
-          examName={examName}
-          totalCorrect={totalCorrect}
-          totalQuestions={totalQuestions}
-          overallPercentage={overallPercentage}
-          searchTerm={searchTerm}
-          onSearchChange={handleSearchChange}
-          activeTab={activeTab}
-        />
-      </div>
-      
-      {/* Header Component for desktop/tablet */}
-      <div className="hidden md:block">
-        <Header 
-          examName={examName}
-          totalCorrect={totalCorrect}
-          totalQuestions={totalQuestions}
-          overallPercentage={overallPercentage}
-          searchTerm={searchTerm}
-          onSearchChange={handleSearchChange}
-          activeTab={activeTab}
-        />
-      </div>
+      {/* Single Header component for all screen sizes */}
+      <Header 
+        examName={examName}
+        totalCorrect={totalCorrect}
+        totalQuestions={totalQuestions}
+        overallPercentage={overallPercentage}
+        searchTerm={searchTerm}
+        onSearchChange={handleSearchChange}
+        activeTab={activeTab}
+      />
 
       <main className="container mx-auto px-4 pt-2 pb-16 md:py-6">
         {/* Tab Bar Component */}
