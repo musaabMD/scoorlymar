@@ -227,7 +227,7 @@ export default function ExamDetailPage({ params }) {
     <div className="bg-gray-50 min-h-screen">
       {/* Header Component with Content Type Selection */}
       <ExamDetailHeader 
-        exam={exam} 
+        examId={exam.id} // Pass the exam ID instead of the full exam object
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         showPinned={showPinned} 

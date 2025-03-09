@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Search, Book, FileText, Filter, Pin, XCircle, BookOpen, CheckSquare, Stethoscope } from 'lucide-react';
+import { ArrowLeft, Search, Book, FileText, Filter, Pin, XCircle, BookOpen, CheckSquare } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
+import { examData } from '@/app/data/allexams';
 
 const ExamDetailHeader = ({
-  exam,
+  examId, // This should be the numeric ID of the exam
   activeTab,
   setActiveTab,
   showPinned,
@@ -21,6 +22,20 @@ const ExamDetailHeader = ({
   const [subject, setSubject] = useState("cardiology");
   const [review, setReview] = useState("review_all");
 
+  // Function to find an exam in any category by ID
+  const findExamById = (id) => {
+    const numericId = Number(id);
+    for (const category in examData) {
+      const found = examData[category].find(exam => exam.id === numericId);
+      if (found) return found;
+    }
+    // Fallback to a default exam
+    return examData.medical[0];
+  };
+
+  // Get the current exam data based on examId
+  const currentExam = findExamById(examId);
+
   // Content type options
   const contentTypes = [
     { label: "Prep Notes", value: "prep", icon: BookOpen },
@@ -34,13 +49,6 @@ const ExamDetailHeader = ({
     { label: "Neurology", value: "neurology" },
     { label: "Immunology", value: "immunology" },
     { label: "Pharmacology", value: "pharmacology" }
-  ];
-  
-  const topics = [
-    { label: "Heart Failure", value: "heart_failure" },
-    { label: "Arrhythmias", value: "arrhythmias" },
-    { label: "Stroke", value: "stroke" },
-    { label: "Antibiotics", value: "antibiotics" }
   ];
   
   const reviewOptions = [
@@ -223,11 +231,20 @@ const ExamDetailHeader = ({
             
             {/* Exam name with icon */}
             <div className="flex items-center ml-2 hidden sm:flex">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center mr-2">
-                <Stethoscope size={16} strokeWidth={1.5} color="white" />
+              {/* Create the icon container with the exam's gradient background */}
+              <div 
+                className="w-8 h-8 rounded-full flex items-center justify-center mr-2"
+                style={{ background: currentExam.gradient }}
+              >
+                {/* Clone the React icon element from the exam data but adjust size */}
+                {currentExam.icon && React.cloneElement(currentExam.icon, { 
+                  size: 16, 
+                  strokeWidth: 1.5,
+                  color: "white"  // Ensure icon is white
+                })}
               </div>
               <h1 className="text-lg font-semibold text-slate-900">
-                ANCC AGACNP-BC
+                {currentExam.name}
               </h1>
             </div>
           </div>
