@@ -104,65 +104,72 @@ export function NavActions() {
     setIsOpen(true)
   }, [])
   
-  return createElement("div", {
-    className: "flex items-center gap-2 text-sm"
-  }, [
-    createElement("div", {
-      className: "hidden font-medium text-muted-foreground md:inline-block",
-      children: "Edit Oct 08"
-    }),
-    createElement(Button, {
-      variant: "ghost",
-      size: "icon",
-      className: "h-7 w-7",
-      children: createElement(Star)
-    }),
-    createElement(Popover, {
-      open: isOpen,
-      onOpenChange: setIsOpen,
-      children: [
-        createElement(PopoverTrigger, {
-          asChild: true,
-          children: createElement(Button, {
+  return createElement("div", 
+    { className: "flex items-center gap-2 text-sm" },
+    createElement("div", 
+      { className: "hidden font-medium text-muted-foreground md:inline-block" },
+      "Edit Oct 08"
+    ),
+    createElement(Button, 
+      {
+        variant: "ghost",
+        size: "icon",
+        className: "h-7 w-7"
+      },
+      createElement(Star)
+    ),
+    createElement(Popover, 
+      {
+        open: isOpen,
+        onOpenChange: setIsOpen
+      },
+      createElement(PopoverTrigger, 
+        { asChild: true },
+        createElement(Button, 
+          {
             variant: "ghost",
             size: "icon",
-            className: "h-7 w-7 data-[state=open]:bg-accent",
-            children: createElement(MoreHorizontal)
-          })
-        }),
-        createElement(PopoverContent, {
+            className: "h-7 w-7 data-[state=open]:bg-accent"
+          },
+          createElement(MoreHorizontal)
+        )
+      ),
+      createElement(PopoverContent, 
+        {
           className: "w-56 overflow-hidden rounded-lg p-0",
-          align: "end",
-          children: createElement(Sidebar, {
+          align: "end"
+        },
+        createElement(Sidebar, 
+          {
             collapsible: "none",
-            className: "bg-transparent",
-            children: createElement(SidebarContent, {
-              children: data.map((group, index) =>
-                createElement(SidebarGroup, {
+            className: "bg-transparent"
+          },
+          createElement(SidebarContent, null,
+            data.map((group, index) =>
+              createElement(SidebarGroup, 
+                {
                   key: index,
-                  className: "border-b last:border-none",
-                  children: createElement(SidebarGroupContent, {
-                    className: "gap-0",
-                    children: createElement(SidebarMenu, {
-                      children: group.map((item, itemIndex) =>
-                        createElement(SidebarMenuItem, {
-                          key: itemIndex,
-                          children: createElement(SidebarMenuButton, {
-                            children: [
-                              createElement(item.icon),
-                              createElement("span", { children: item.label })
-                            ]
-                          })
-                        })
+                  className: "border-b last:border-none"
+                },
+                createElement(SidebarGroupContent, 
+                  { className: "gap-0" },
+                  createElement(SidebarMenu, null,
+                    group.map((item, itemIndex) =>
+                      createElement(SidebarMenuItem, 
+                        { key: itemIndex },
+                        createElement(SidebarMenuButton, null,
+                          createElement(item.icon),
+                          createElement("span", null, item.label)
+                        )
                       )
-                    })
-                  })
-                })
+                    )
+                  )
+                )
               )
-            })
-          })
-        })
-      ]
-    })
-  ])
+            )
+          )
+        )
+      )
+    )
+  )
 }

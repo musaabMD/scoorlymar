@@ -57,72 +57,64 @@ export function TeamSwitcher({ initialTeamIndex = 0 }) {
     return null
   }
   
-  return createElement(SidebarMenu, {
-    children: createElement(SidebarMenuItem, {
-      children: createElement(DropdownMenu, {
-        children: [
-          createElement(DropdownMenuTrigger, {
-            asChild: true,
-            children: createElement(SidebarMenuButton, {
-              className: "w-fit px-1.5",
-              children: [
-                createElement("div", {
-                  className: "flex aspect-square size-5 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground",
-                  children: renderIcon(activeTeam.iconType, "size-3")
-                }),
-                createElement("span", { 
-                  className: "truncate font-semibold",
-                  children: activeTeam.name
-                }),
-                createElement(ChevronDown, { className: "opacity-50" })
-              ]
-            })
-          }),
-          createElement(DropdownMenuContent, {
+  return createElement(SidebarMenu, null,
+    createElement(SidebarMenuItem, null,
+      createElement(DropdownMenu, null,
+        createElement(DropdownMenuTrigger, 
+          { asChild: true },
+          createElement(SidebarMenuButton, 
+            { className: "w-fit px-1.5" },
+            createElement("div", 
+              { className: "flex aspect-square size-5 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground" },
+              renderIcon(activeTeam.iconType, "size-3")
+            ),
+            createElement("span", 
+              { className: "truncate font-semibold" },
+              activeTeam.name
+            ),
+            createElement(ChevronDown, { className: "opacity-50" })
+          )
+        ),
+        createElement(DropdownMenuContent, 
+          {
             className: "w-64 rounded-lg",
             align: "start",
             side: "bottom",
-            sideOffset: 4,
-            children: [
-              createElement(DropdownMenuLabel, {
-                className: "text-xs text-muted-foreground",
-                children: "Teams"
-              }),
-              ...TEAMS.map((team, index) =>
-                createElement(DropdownMenuItem, {
-                  key: team.name,
-                  onClick: () => setActiveTeam(team),
-                  className: "gap-2 p-2",
-                  children: [
-                    createElement("div", {
-                      className: "flex size-6 items-center justify-center rounded-sm border",
-                      children: renderIcon(team.iconType, "size-4 shrink-0")
-                    }),
-                    team.name,
-                    createElement(DropdownMenuShortcut, {
-                      children: `⌘${index + 1}`
-                    })
-                  ]
-                })
+            sideOffset: 4
+          },
+          createElement(DropdownMenuLabel, 
+            { className: "text-xs text-muted-foreground" },
+            "Teams"
+          ),
+          ...TEAMS.map((team, index) =>
+            createElement(DropdownMenuItem, 
+              {
+                key: team.name,
+                onClick: () => setActiveTeam(team),
+                className: "gap-2 p-2"
+              },
+              createElement("div", 
+                { className: "flex size-6 items-center justify-center rounded-sm border" },
+                renderIcon(team.iconType, "size-4 shrink-0")
               ),
-              createElement(DropdownMenuSeparator),
-              createElement(DropdownMenuItem, {
-                className: "gap-2 p-2",
-                children: [
-                  createElement("div", {
-                    className: "flex size-6 items-center justify-center rounded-md border bg-background",
-                    children: createElement(Plus, { className: "size-4" })
-                  }),
-                  createElement("div", {
-                    className: "font-medium text-muted-foreground",
-                    children: "Add team"
-                  })
-                ]
-              })
-            ]
-          })
-        ]
-      })
-    })
-  })
+              team.name,
+              createElement(DropdownMenuShortcut, null, `⌘${index + 1}`)
+            )
+          ),
+          createElement(DropdownMenuSeparator),
+          createElement(DropdownMenuItem, 
+            { className: "gap-2 p-2" },
+            createElement("div", 
+              { className: "flex size-6 items-center justify-center rounded-md border bg-background" },
+              createElement(Plus, { className: "size-4" })
+            ),
+            createElement("div", 
+              { className: "font-medium text-muted-foreground" },
+              "Add team"
+            )
+          )
+        )
+      )
+    )
+  )
 }
