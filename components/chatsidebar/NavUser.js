@@ -1,4 +1,4 @@
-// NavUser.js
+// components/chatsidebar/NavUser.js
 import React, { createElement } from 'react'
 import {
   BadgeCheck,
@@ -30,13 +30,23 @@ import {
 } from "@/components/ui/sidebar.jsx"
 
 export function NavUser({ user }) {
-  // Fixed hook issue: Always call hooks at the top level
-  const sidebarContext = typeof useSidebar === 'function' ? useSidebar() : { isMobile: false };
-  const isMobile = sidebarContext?.isMobile || false;
+  // Check if useSidebar is a function before calling it
+  let isMobile = false;
+  try {
+    // Only call useSidebar if it's a function
+    if (typeof useSidebar === 'function') {
+      const sidebarContext = useSidebar();
+      isMobile = sidebarContext?.isMobile || false;
+    }
+  } catch (error) {
+    console.error("Error with useSidebar:", error);
+    // Fallback to default value
+    isMobile = false;
+  }
   
-  return createElement(SidebarMenu, null,
-    createElement(SidebarMenuItem, null,
-      createElement(DropdownMenu, null,
+  return createElement(SidebarMenu, {},
+    createElement(SidebarMenuItem, {},
+      createElement(DropdownMenu, {},
         createElement(DropdownMenuTrigger, 
           { asChild: true },
           createElement(SidebarMenuButton, 
@@ -99,29 +109,29 @@ export function NavUser({ user }) {
             )
           ),
           createElement(DropdownMenuSeparator),
-          createElement(DropdownMenuGroup, null,
-            createElement(DropdownMenuItem, null,
+          createElement(DropdownMenuGroup, {},
+            createElement(DropdownMenuItem, {},
               createElement(Sparkles),
               "Upgrade to Pro"
             )
           ),
           createElement(DropdownMenuSeparator),
-          createElement(DropdownMenuGroup, null,
-            createElement(DropdownMenuItem, null,
+          createElement(DropdownMenuGroup, {},
+            createElement(DropdownMenuItem, {},
               createElement(BadgeCheck),
               "Account"
             ),
-            createElement(DropdownMenuItem, null,
+            createElement(DropdownMenuItem, {},
               createElement(CreditCard),
               "Billing"
             ),
-            createElement(DropdownMenuItem, null,
+            createElement(DropdownMenuItem, {},
               createElement(Bell),
               "Notifications"
             )
           ),
           createElement(DropdownMenuSeparator),
-          createElement(DropdownMenuItem, null,
+          createElement(DropdownMenuItem, {},
             createElement(LogOut),
             "Log out"
           )

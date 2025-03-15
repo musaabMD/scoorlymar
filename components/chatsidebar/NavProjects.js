@@ -1,4 +1,4 @@
-// NavProjects.js
+// components/chatsidebar/NavProjects.js
 import React, { createElement } from 'react'
 import {
   Folder,
@@ -24,65 +24,75 @@ import {
 } from "@/components/ui/sidebar.jsx"
 
 export function NavProjects({ projects }) {
-  // Fixed hook issue: Always call hooks at the top level
-  const sidebarContext = typeof useSidebar === 'function' ? useSidebar() : { isMobile: false };
-  const isMobile = sidebarContext?.isMobile || false;
-  
+  // Check if useSidebar is a function before calling it
+  let isMobile = false;
+  try {
+    // Only call useSidebar if it's a function
+    if (typeof useSidebar === 'function') {
+      const sidebarContext = useSidebar();
+      isMobile = sidebarContext?.isMobile || false;
+    }
+  } catch (error) {
+    console.error("Error with useSidebar:", error);
+    // Fallback to default value
+    isMobile = false;
+  }
+
   return createElement(SidebarGroup, 
     { className: "group-data-[collapsible=icon]:hidden" },
-    createElement(SidebarGroupLabel, null, "Projects"),
-    createElement(SidebarMenu, null,
+    createElement(SidebarGroupLabel, {}, "Projects"),
+    createElement(SidebarMenu, {},
       // Map through projects
-      ...projects.map(item => 
-        createElement(SidebarMenuItem, 
+      ...projects.map(item =>
+        createElement(SidebarMenuItem,
           { key: item.name },
-          createElement(SidebarMenuButton, 
+          createElement(SidebarMenuButton,
             { asChild: true },
-            createElement("a", 
+            createElement("a",
               { href: item.url },
               createElement(item.icon),
-              createElement("span", null, item.name)
+              createElement("span", {}, item.name)
             )
           ),
-          createElement(DropdownMenu, null,
-            createElement(DropdownMenuTrigger, 
+          createElement(DropdownMenu, {},
+            createElement(DropdownMenuTrigger,
               { asChild: true },
-              createElement(SidebarMenuAction, 
+              createElement(SidebarMenuAction,
                 { showOnHover: true },
                 createElement(MoreHorizontal),
-                createElement("span", 
+                createElement("span",
                   { className: "sr-only" },
                   "More"
                 )
               )
             ),
-            createElement(DropdownMenuContent, 
+            createElement(DropdownMenuContent,
               {
                 className: "w-48",
                 side: isMobile ? "bottom" : "right",
                 align: isMobile ? "end" : "start"
               },
-              createElement(DropdownMenuItem, null,
+              createElement(DropdownMenuItem, {},
                 createElement(Folder, { className: "text-muted-foreground" }),
-                createElement("span", null, "View Project")
+                createElement("span", {}, "View Project")
               ),
-              createElement(DropdownMenuItem, null,
+              createElement(DropdownMenuItem, {},
                 createElement(Share, { className: "text-muted-foreground" }),
-                createElement("span", null, "Share Project")
+                createElement("span", {}, "Share Project")
               ),
               createElement(DropdownMenuSeparator),
-              createElement(DropdownMenuItem, null,
+              createElement(DropdownMenuItem, {},
                 createElement(Trash2, { className: "text-muted-foreground" }),
-                createElement("span", null, "Delete Project")
+                createElement("span", {}, "Delete Project")
               )
             )
           )
         )
       ),
-      createElement(SidebarMenuItem, null,
-        createElement(SidebarMenuButton, null,
+      createElement(SidebarMenuItem, {},
+        createElement(SidebarMenuButton, {},
           createElement(MoreHorizontal),
-          createElement("span", null, "More")
+          createElement("span", {}, "More")
         )
       )
     )
