@@ -1,5 +1,5 @@
 // components/chatsidebar/NavProjects.js
-import React, { createElement } from 'react'
+import { createElement } from 'react'
 import {
   Folder,
   MoreHorizontal,
@@ -20,23 +20,12 @@ import {
   SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar.jsx"
 
-export function NavProjects({ projects }) {
-  // IMPORTANT: Always call hooks unconditionally at the top level
-  // Even if it might not be a function, we'll handle the error afterward
-  let sidebarContext;
-  let isMobile = false;
-  
-  try {
-    sidebarContext = useSidebar();
-    isMobile = sidebarContext?.isMobile || false;
-  } catch (error) {
-    console.error("Error with useSidebar:", error);
-    isMobile = false;
-  }
+// Define a constant for fallback isMobile value
+const DEFAULT_IS_MOBILE = false;
 
+export function NavProjects({ projects, isMobile = DEFAULT_IS_MOBILE }) {
   return createElement(SidebarGroup, 
     { className: "group-data-[collapsible=icon]:hidden" },
     createElement(SidebarGroupLabel, {}, "Projects"),
