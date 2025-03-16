@@ -84,6 +84,12 @@ export function AppSidebar(props) {
     window.dispatchEvent(event);
   };
 
+  const handleReviewClick = (e) => {
+    e.preventDefault();
+    const event = new CustomEvent('showReview');
+    window.dispatchEvent(event);
+  };
+
   const projects = [
     {
       name: "Practice",
@@ -94,6 +100,7 @@ export function AppSidebar(props) {
       name: "Review",
       url: "#",
       icon: PieChart,
+      onClick: handleReviewClick
     },
     {
       name: "Concepts",
