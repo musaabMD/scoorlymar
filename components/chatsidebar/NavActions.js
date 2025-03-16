@@ -100,10 +100,6 @@ const data = [
 export function NavActions() {
   const [isOpen, setIsOpen] = useState(false)
   
-  useEffect(() => {
-    setIsOpen(true)
-  }, [])
-  
   return createElement("div", 
     { className: "flex items-center gap-2 text-sm" },
     createElement("div", 

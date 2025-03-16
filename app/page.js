@@ -245,7 +245,7 @@ function Page() {
     createElement(AppSidebar),
     createElement(SidebarInset, {},
       createElement("header", {
-        className: "flex h-16 shrink-0 items-center gap-2 justify-between px-4"
+        className: "flex h-16 shrink-0 items-center gap-2 justify-between px-4 sticky top-0 bg-background z-10"
       },
         createElement("div", {
           className: "flex items-center gap-2"
