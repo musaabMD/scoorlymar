@@ -3,6 +3,7 @@ import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva } from "class-variance-authority";
 import { PanelLeft } from "lucide-react"
+import { createElement } from "react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
@@ -601,6 +602,18 @@ const SidebarMenuSubButton = React.forwardRef(
   }
 )
 SidebarMenuSubButton.displayName = "SidebarMenuSubButton"
+
+export const SidebarNavItem = React.forwardRef(({ icon: Icon, children, onClick, ...props }, ref) => {
+  return createElement("div", {
+    ref,
+    onClick,
+    role: "button",
+    ...props
+  },
+    Icon && createElement(Icon, { className: "h-4 w-4" }),
+    children
+  );
+});
 
 export {
   Sidebar,
