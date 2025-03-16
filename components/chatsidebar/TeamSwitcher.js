@@ -70,7 +70,7 @@ export function TeamSwitcher({ initialTeamIndex = 0 }) {
             ),
             createElement("span", 
               { className: "truncate font-semibold" },
-              activeTeam.name
+              activeTeam.name + " " + activeTeam.plan
             ),
             createElement(ChevronDown, { className: "opacity-50" })
           )

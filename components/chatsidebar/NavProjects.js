@@ -28,7 +28,7 @@ const DEFAULT_IS_MOBILE = false;
 export function NavProjects({ projects, isMobile = DEFAULT_IS_MOBILE }) {
   return createElement(SidebarGroup, 
     { className: "group-data-[collapsible=icon]:hidden" },
-    createElement(SidebarGroupLabel, {}, "Projects"),
+    createElement(SidebarGroupLabel, {}, "current exam "),
     createElement(SidebarMenu, {},
       // Map through projects if they exist, otherwise render empty array
       ...(projects ? projects.map(item =>
@@ -77,12 +77,12 @@ export function NavProjects({ projects, isMobile = DEFAULT_IS_MOBILE }) {
           )
         )
       ) : []),
-      createElement(SidebarMenuItem, {},
-        createElement(SidebarMenuButton, {},
-          createElement(MoreHorizontal),
-          createElement("span", {}, "More")
-        )
-      )
+    //   createElement(SidebarMenuItem, {},
+    //     createElement(SidebarMenuButton, {},
+    //       createElement(MoreHorizontal),
+    //       createElement("span", {}, "Mor1e")
+    //     )
+    //   )
     )
   )
 }

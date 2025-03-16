@@ -33,94 +33,13 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  navMain: [
-    {
-      title: "Questions",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "Subject 1",
-          url: "#",
-        },
-        {
-          title: "Subject 2",
-          url: "#",
-        },
-        {
-          title: "Subject 3",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Review",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Subject 1",
-          url: "#",
-        },
-        {
-          title: "Subject 1",
-          url: "#",
-        },
-        {
-          title: "Subject 1",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Concepts",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Subject 1",
-          url: "#",
-        },
-        {
-          title: "Subject 1",
-          url: "#",
-        },
-        {
-          title: "Subject 1",
-          url: "#",
-        },
-        {
-          title: "Subject 1",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Mock Tests",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
+ 
   navSecondary: [
+    {
+        title: "Upgrade",
+        url: "#",
+        icon: LifeBuoy,
+      },
     {
       title: "Support",
       url: "#",
@@ -134,20 +53,26 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
+      name: "Practice",
       url: "#",
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
+      name: "Review",
       url: "#",
       icon: PieChart,
     },
     {
-      name: "Travel",
+      name: "Concepts",
+      url: "#",
+      icon: Map,
+    },  
+    {
+      name: "Mock Tests",
       url: "#",
       icon: Map,
     },
+    
   ],
 }
 
@@ -192,7 +117,7 @@ export function AppSidebar(props) {
       )
     ),
     createElement(SidebarContent, null,
-      createElement(NavMain, { items: data.navMain }),
+    //   createElement(NavMain, { items: data.navMain }),
       createElement(NavProjects, { projects: data.projects }),
       createElement(NavSecondary, { items: data.navSecondary, className: "mt-auto" })
     ),
