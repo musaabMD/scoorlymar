@@ -35,69 +35,69 @@ const data = {
   },
   navMain: [
     {
-      title: "Playground",
+      title: "Questions",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "Subject 1",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "Subject 2",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "Subject 3",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Review",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
+          title: "Subject 1",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Subject 1",
           url: "#",
         },
         {
-          title: "Quantum",
+          title: "Subject 1",
           url: "#",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "Concepts",
       url: "#",
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
+          title: "Subject 1",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "Subject 1",
           url: "#",
         },
         {
-          title: "Tutorials",
+          title: "Subject 1",
           url: "#",
         },
         {
-          title: "Changelog",
+          title: "Subject 1",
           url: "#",
         },
       ],
     },
     {
-      title: "Settings",
+      title: "Mock Tests",
       url: "#",
       icon: Settings2,
       items: [

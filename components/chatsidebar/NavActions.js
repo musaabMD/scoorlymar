@@ -104,7 +104,7 @@ export function NavActions() {
     { className: "flex items-center gap-2 text-sm" },
     createElement("div", 
       { className: "hidden font-medium text-muted-foreground md:inline-block" },
-      "Edit Oct 08"
+      "Upgrade | Score "
     ),
     createElement(Button, 
       {

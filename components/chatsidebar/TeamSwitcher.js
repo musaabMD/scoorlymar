@@ -20,17 +20,17 @@ import {
 // Define teams directly in the client component
 const TEAMS = [
   {
-    name: "Acme Inc",
+    name: "Exam 1",
     iconType: "command",
     plan: "Enterprise"
   },
   {
-    name: "DigitalEdge",
+    name: "Exam 2",
     iconType: "cpu",
     plan: "Pro"
   },
   {
-    name: "CreativeWorks",
+    name: "Exam 3",
     iconType: "frame",
     plan: "Basic"
   }
@@ -110,7 +110,7 @@ export function TeamSwitcher({ initialTeamIndex = 0 }) {
             ),
             createElement("div", 
               { className: "font-medium text-muted-foreground" },
-              "Add team"
+              "Add New Exam"
             )
           )
         )
