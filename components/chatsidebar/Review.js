@@ -1,166 +1,16 @@
-// // AppSidebar.js
-// import React, { createElement } from 'react'
-// import {
-//   BookOpen,
-//   Bot,
-//   Command,
-//   Frame,
-//   LifeBuoy,
-//   Map,
-//   PieChart,
-//   Send,
-//   Settings2,
-//   SquareTerminal,
-// } from "lucide-react"
-// import { NavMain } from "./NavMain.js"
-// import { NavProjects } from "./NavProjects.js"
-// import { NavSecondary } from "./NavSecondary.js"
-// import { NavUser } from "./NavUser.js"
-// import { TeamSwitcher } from "./TeamSwitcher.js"
-// import {
-//   Sidebar,
-//   SidebarContent,
-//   SidebarFooter,
-//   SidebarHeader,
-//   SidebarMenu,
-//   SidebarMenuButton,
-//   SidebarMenuItem,
-// } from "@/components/ui/sidebar.jsx"
-
-// const data = {
-//   user: {
-//     name: "shadcn",
-//     email: "m@example.com",
-//     avatar: "/avatars/shadcn.jpg",
-//   },
- 
-//   navSecondary: [
-//     {
-//         title: "Upgrade",
-//         url: "#",
-//         icon: LifeBuoy,
-//       },
-//     {
-//       title: "Support",
-//       url: "#",
-//       icon: LifeBuoy,
-//     },
-//     {
-//       title: "Feedback",
-//       url: "#",
-//       icon: Send,
-//     },
-//   ],
-//   projects: [
-//     {
-//       name: "Practice",
-//       url: "#",
-//       icon: Frame,
-//     },
-//     {
-//       name: "Review",
-//       url: "#",
-//       icon: PieChart,
-//     },
-//     {
-//       name: "Concepts",
-//       url: "#",
-//       icon: Map,
-//     },  
-//     {
-//       name: "Mock Tests",
-//       url: "#",
-//       icon: Map,
-//     },
-    
-//   ],
-// }
-
-// export function AppSidebar(props) {
-//   return createElement(Sidebar, 
-//     {
-//       variant: "inset",
-//       ...props
-//     },
-//     createElement(SidebarHeader, null,
-//       // TeamSwitcher with default initial team index
-//       createElement(TeamSwitcher, { initialTeamIndex: 0 }),
-//       // You can remove this section as TeamSwitcher already provides similar functionality
-//       createElement(SidebarMenu, 
-//         { className: "hidden" }, // Hide this since TeamSwitcher replaces it
-//         createElement(SidebarMenuItem, null,
-//           createElement(SidebarMenuButton,
-//             {
-//               size: "lg",
-//               asChild: true
-//             },
-//             createElement("a", 
-//               { href: "#" },
-//               createElement("div", 
-//                 { className: "flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground" },
-//                 createElement(Command, { className: "size-4" })
-//               ),
-//               createElement("div", 
-//                 { className: "grid flex-1 text-left text-sm leading-tight" },
-//                 createElement("span", 
-//                   { className: "truncate font-semibold" },
-//                   "Acme Inc"
-//                 ),
-//                 createElement("span", 
-//                   { className: "truncate text-xs" },
-//                   "Enterprise"
-//                 )
-//               )
-//             )
-//           )
-//         )
-//       )
-//     ),
-//     createElement(SidebarContent, null,
-//     //   createElement(NavMain, { items: data.navMain }),
-//       createElement(NavProjects, { projects: data.projects }),
-//       createElement(NavSecondary, { items: data.navSecondary, className: "mt-auto" })
-//     ),
-//     createElement(SidebarFooter, null,
-//       createElement(NavUser, { user: data.user })
-//     )
-//   )
-// }
 "use client";
 
-import React, { createElement, useState } from 'react';
+import React, { createElement, useState } from "react";
 import {
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
-  SquareTerminal,
+  BookOpenCheck,
   Flag,
   XCircle,
   CheckCircle,
-  BarChart2,
+  ChevronRight,
   Clock,
+  BarChart2,
   Filter,
 } from "lucide-react";
-import { NavMain } from "./NavMain.js";
-import { NavProjects } from "./NavProjects.js";
-import { NavSecondary } from "./NavSecondary.js";
-import { NavUser } from "./NavUser.js";
-import { TeamSwitcher } from "./TeamSwitcher.js";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar.jsx";
 import {
   Sheet,
   SheetContent,
@@ -226,16 +76,55 @@ const sampleMCQs = [
     subject: "Physics",
     topic: "Newton's Laws",
     timestamp: "3 days ago"
+  },
+  {
+    id: 4,
+    question: "Which hormone regulates blood glucose levels?",
+    options: [
+      "A. Estrogen",
+      "B. Testosterone",
+      "C. Insulin",
+      "D. Growth hormone"
+    ],
+    correctAnswer: "C",
+    userAnswer: "D",
+    status: "incorrect",
+    flagged: true,
+    subject: "Biology",
+    topic: "Endocrine System",
+    timestamp: "4 hours ago"
+  },
+  {
+    id: 5,
+    question: "What is the value of π (pi) to two decimal places?",
+    options: [
+      "A. 3.14",
+      "B. 3.16",
+      "C. 3.12",
+      "D. 3.18"
+    ],
+    correctAnswer: "A",
+    userAnswer: "A",
+    status: "correct",
+    flagged: false,
+    subject: "Mathematics",
+    topic: "Constants",
+    timestamp: "1 week ago"
   }
 ];
 
 // Generate more sample questions to have a total of 23
-for (let i = 4; i <= 23; i++) {
+for (let i = 6; i <= 23; i++) {
   const isCorrect = Math.random() > 0.4;
   sampleMCQs.push({
     id: i,
     question: `Sample question #${i} for testing pagination`,
-    options: ["A. Option A", "B. Option B", "C. Option C", "D. Option D"],
+    options: [
+      "A. Option A",
+      "B. Option B",
+      "C. Option C",
+      "D. Option D"
+    ],
     correctAnswer: "A",
     userAnswer: isCorrect ? "A" : "B",
     status: isCorrect ? "correct" : "incorrect",
@@ -246,66 +135,19 @@ for (let i = 4; i <= 23; i++) {
   });
 }
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navSecondary: [
-    {
-      title: "Upgrade",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: "Practice",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Review",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Concepts",
-      url: "#",
-      icon: Map,
-    },
-    {
-      name: "Mock Tests",
-      url: "#",
-      icon: Map,
-    },
-  ],
-};
-
-// Count totals
-const counts = {
-  all: sampleMCQs.length,
-  flagged: sampleMCQs.filter(q => q.flagged).length,
-  incorrect: sampleMCQs.filter(q => q.status === "incorrect").length,
-  correct: sampleMCQs.filter(q => q.status === "correct").length
-};
-
-export function AppSidebar(props) {
+export function Review() {
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("all");
   const [selectedMCQ, setSelectedMCQ] = useState(null);
-
+  
+  // Count totals
+  const counts = {
+    all: sampleMCQs.length,
+    flagged: sampleMCQs.filter(q => q.flagged).length,
+    incorrect: sampleMCQs.filter(q => q.status === "incorrect").length,
+    correct: sampleMCQs.filter(q => q.status === "correct").length
+  };
+  
   // Filter MCQs based on active tab
   const getFilteredMCQs = () => {
     switch (activeTab) {
@@ -320,6 +162,11 @@ export function AppSidebar(props) {
     }
   };
   
+  const handleTabChange = (value) => {
+    setActiveTab(value);
+    setSelectedMCQ(null);
+  };
+  
   const handleOpenReview = () => {
     setIsReviewOpen(true);
   };
@@ -328,11 +175,6 @@ export function AppSidebar(props) {
     setSelectedMCQ(mcq);
   };
   
-  const handleTabChange = (value) => {
-    setActiveTab(value);
-    setSelectedMCQ(null);
-  };
-
   const statusIcons = {
     correct: CheckCircle,
     incorrect: XCircle,
@@ -344,97 +186,17 @@ export function AppSidebar(props) {
     incorrect: "text-red-600",
     flagged: "text-amber-500"
   };
-
-  // Custom render of projects with special handling for Review
-  const renderProjects = () => {
-    return createElement(SidebarMenu, null,
-      data.projects.map((project, index) => 
-        createElement(SidebarMenuItem, { key: index },
-          project.name === "Review" ?
-            // Special handling for Review project
-            createElement(SidebarMenuButton, {
-              onClick: handleOpenReview,
-              className: "w-full justify-between"
-            },
-              createElement(project.icon, null),
-              createElement("span", { className: "flex-1 text-left" }, project.name),
-              createElement("div", { className: "flex gap-1.5" },
-                createElement(Badge, { 
-                  variant: "secondary", 
-                  className: "text-xs rounded-full px-1.5 py-0"
-                }, counts.all),
-                createElement(Badge, { 
-                  variant: "outline", 
-                  className: "bg-red-50 text-red-700 border-red-200 text-xs rounded-full px-1.5 py-0"
-                }, counts.incorrect),
-                createElement(Badge, { 
-                  variant: "outline", 
-                  className: "bg-amber-50 text-amber-700 border-amber-200 text-xs rounded-full px-1.5 py-0"
-                }, counts.flagged)
-              )
-            )
-          :
-            // Normal project menu item
-            createElement(SidebarMenuButton, { asChild: true },
-              createElement("a", { href: project.url },
-                createElement(project.icon, null),
-                project.name
-              )
-            )
-        )
-      )
-    );
-  };
-
+  
   return createElement(React.Fragment, null,
-    // Standard Sidebar
-    createElement(Sidebar,
-      {
-        variant: "inset",
-        ...props
+    // Review button
+    createElement("button", 
+      { 
+        className: "flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-gray-100 font-medium text-sm transition-colors",
+        onClick: handleOpenReview
       },
-      createElement(SidebarHeader, null,
-        // TeamSwitcher with default initial team index
-        createElement(TeamSwitcher, { initialTeamIndex: 0 }),
-        // You can remove this section as TeamSwitcher already provides similar functionality
-        createElement(SidebarMenu,
-          { className: "hidden" }, // Hide this since TeamSwitcher replaces it
-          createElement(SidebarMenuItem, null,
-            createElement(SidebarMenuButton,
-              {
-                size: "lg",
-                asChild: true
-              },
-              createElement("a",
-                { href: "#" },
-                createElement("div",
-                  { className: "flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground" },
-                  createElement(Command, { className: "size-4" })
-                ),
-                createElement("div",
-                  { className: "grid flex-1 text-left text-sm leading-tight" },
-                  createElement("span",
-                    { className: "truncate font-semibold" },
-                    "Acme Inc"
-                  ),
-                  createElement("span",
-                    { className: "truncate text-xs" },
-                    "Enterprise"
-                  )
-                )
-              )
-            )
-          )
-        )
-      ),
-      createElement(SidebarContent, null,
-        // Custom Projects menu with Review functionality
-        renderProjects(),
-        createElement(NavSecondary, { items: data.navSecondary, className: "mt-auto" })
-      ),
-      createElement(SidebarFooter, null,
-        createElement(NavUser, { user: data.user })
-      )
+      createElement(BookOpenCheck, { className: "h-4 w-4 text-blue-600" }),
+      createElement("span", { className: "font-semibold" }, "Review"),
+      createElement(ChevronRight, { className: "h-3 w-3 text-gray-400" })
     ),
     
     // Review Sheet
@@ -634,10 +396,10 @@ export function AppSidebar(props) {
                       ? "Great job! You answered this question correctly."
                       : "This question was answered incorrectly. The correct answer is " + 
                         selectedMCQ.correctAnswer + ". " +
-                        (selectedMCQ.correctAnswer === "A" ? "Glucose has the chemical formula C6H12O6." 
+                        selectedMCQ.correctAnswer === "A" ? "Glucose has the chemical formula C6H12O6." 
                         : selectedMCQ.correctAnswer === "C" ? "Gravitational force keeps planets in orbit around the sun."
                         : selectedMCQ.correctAnswer === "B" ? "Reproduction is a key characteristic of living organisms."
-                        : "Insulin is the hormone that regulates blood glucose levels.")
+                        : "Insulin is the hormone that regulates blood glucose levels."
                   )
                 ),
                 
