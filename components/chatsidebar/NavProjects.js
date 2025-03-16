@@ -24,17 +24,16 @@ import {
 } from "@/components/ui/sidebar.jsx"
 
 export function NavProjects({ projects }) {
-  // Check if useSidebar is a function before calling it
+  // IMPORTANT: Always call hooks unconditionally at the top level
+  // Even if it might not be a function, we'll handle the error afterward
+  let sidebarContext;
   let isMobile = false;
+  
   try {
-    // Only call useSidebar if it's a function
-    if (typeof useSidebar === 'function') {
-      const sidebarContext = useSidebar();
-      isMobile = sidebarContext?.isMobile || false;
-    }
+    sidebarContext = useSidebar();
+    isMobile = sidebarContext?.isMobile || false;
   } catch (error) {
     console.error("Error with useSidebar:", error);
-    // Fallback to default value
     isMobile = false;
   }
 
@@ -42,8 +41,8 @@ export function NavProjects({ projects }) {
     { className: "group-data-[collapsible=icon]:hidden" },
     createElement(SidebarGroupLabel, {}, "Projects"),
     createElement(SidebarMenu, {},
-      // Map through projects
-      ...projects.map(item =>
+      // Map through projects if they exist, otherwise render empty array
+      ...(projects ? projects.map(item =>
         createElement(SidebarMenuItem,
           { key: item.name },
           createElement(SidebarMenuButton,
@@ -88,7 +87,7 @@ export function NavProjects({ projects }) {
             )
           )
         )
-      ),
+      ) : []),
       createElement(SidebarMenuItem, {},
         createElement(SidebarMenuButton, {},
           createElement(MoreHorizontal),

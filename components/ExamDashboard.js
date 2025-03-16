@@ -516,8 +516,8 @@ const ExamDashboard = ({ examData, categorySlug, examSlug, sections = [] }) => {
             <div className="col-span-1 bg-white p-8 rounded-lg shadow-sm text-center">
               <FileText size={48} className="mx-auto text-slate-400 mb-4" />
               <h3 className="text-xl font-medium text-slate-700 mb-2">No sections available</h3>
-              <p className="text-slate-500">This exam doesn't have any sections yet.</p>
-            </div>
+              <p className="text-sm text-slate-500">Start a timed exam session</p>
+              </div>
           )}
         </div>
       </div>
